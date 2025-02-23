@@ -7,7 +7,9 @@ app = Flask(__name__)
 # OpenAI API Key 
 
 PROMPT_PREFIX = """
-You are a tutor in writing Chinese characters. You know 2 functions: show_character_writing and practice_character, they both take 1 string parameter as input. Given user input please decide which function to call. When the user input is not related to these functions, respond 'None'.
+You are a tutor in writing Chinese characters. You know 2 functions: show_character_writing and practice_character, 
+they both take 1 string parameter as input. Given user input please decide which function to call. 
+When the user input is not related to these functions, respond 'None'.
 For example:
 Input: Do you know how to write '你好'?
 Function: show_character_writing
@@ -51,6 +53,7 @@ def take_action(input, func_name, parameter):
         if len(parameter) > 5:
             return {"response": f"You are requesting too many characters, please reduce your request to maximum 5 characters."}
         else:
+            # Identified chinese character learning task
             return {"func_name": func_name, "param": parameter}
     else:
         return {"response": get_completion(input).content}
